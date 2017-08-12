@@ -118,4 +118,111 @@ puts powered(3, 6)
 Write a recursive function that returns all anagrams of a string (even if the 
 anagrams aren’t words themselves). For example, the anagrams of cat are cat, 
 cta, act, atc, tac, tca.
+
+base case: length of argument passed to all_anagrams is 1
+   return the fixed portion plus the argument
+in all_anagrams
+    loop through letters of argument, putting each in first index, calling
+    all_anagrams with remaining letters and adding them together to create
+    partial anagrams. Loop through partial anagrams and complete them.
+=end
+
+def without(word, index)                # just a convenience method
+    new_word = ""
+    word.split("").each_with_index do |letter, i|
+        if i != index
+            new_word += letter
+        end
+    end
+    return new_word
+end
+
+def all_anagrams(fixed="", word)
+    if word.length == 1                 # base case
+        return [fixed + word]
+    else
+        anagrams = []
+        word.split("").each_with_index do |letter, i|
+            new_fixed = letter
+            partial_anagrams = all_anagrams(new_fixed, without(word, i))
+            partial_anagrams.each do |partial|
+                anagrams.push(fixed + partial)
+            end
+        end
+        return anagrams
+    end
+end
+
+puts all_anagrams("star").join(", ")
+puts all_anagrams("star").length
+
+=begin
+
+Step-by-Step of what is happening....
+
+fixed = "" word = "cat"
+anagrams = []
+loop through ["c", "a", "t"]
+    new_fixed = "c"
+    partial_anagrams =
+        fixed = "c" word = "at"
+        anagrams = []
+        loop through ["a", "t"]
+            new_fixed = "a"
+            partial_anagrams =
+                fixed = "a" word = "t"
+                return ["at"]
+            loop through partial_anagrams
+                anagrams = ["cat"]
+            new_fixed = "t"
+            partial_anagrams =
+                fixed = "t" word = "a"
+                return ["ta"]
+            loop through partial_anagrams
+                anagrams = ["cat", "cta"]
+        return ["cat", "cta]
+    loop through partial_anagrams
+        anagrams = ["cat", "cta"]   (just prepends with original blank string)
+    new_fixed = "a"
+    partial_anagrams =
+        fixed = "a" word = "ct"
+        anagrams = []
+        loop through ["c", "t"]
+            new_fixed = "c"
+            partial_anagrams =
+                fixed = "c" word = "t"
+                return ["ct"]
+            loop through partial_anagrams
+                anagrams = ["act"]
+            new_fixed = "t"
+            partial_anagrams =
+                fixed = "t" word = "c"
+                return ["tc"]
+            loop through partial_anagrams
+                anagrams = ["act", "atc"]
+        return ["act", "atc"]
+    loop through partial_anagrams
+        anagrams = ["cat", "cta", "act", "atc"]   (just prepends with original blank string)
+    new_fixed = "t"
+    partial_anagrams =
+        fixed = "t" word = "ca"
+        anagrams = []
+        loop through ["c", "a"]
+            new_fixed = "c"
+            partial_anagrams =
+                fixed = "c" word = "a"
+                return ["ca"]
+            loop through partial_anagrams
+                anagrams = ["tca"]
+            new_fixed = "a"
+            partial_anagrams =
+                fixed = "a" word = "c"
+                return ["ac"]
+            loop through partial_anagrams
+                anagrams = ["tca", "tac"]
+        return ["tca", "tac"]
+    loop through partial_anagrams
+        anagrams = ["cat", "cta", "act", "atc", "tca", "tac"]   (just prepends with original blank string)
+return ["cat", "cta", "act", "atc", "tca", "tac"]
+
 =end
