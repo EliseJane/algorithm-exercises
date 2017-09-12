@@ -1,0 +1,72 @@
+Relational Data
+Name and define the three sublanguages of SQL.
+  DDL data definition langrage (table schemas), DML data manipulation language (data)
+  TCL? (transaction control language), DQL? (data query language)
+Define cardinality and modality.
+  cardinality is maximum connections (1 or many), modality is minimum (0 or 1)
+Be able to draw database diagrams using crow's foot notation.
+  modality symbol, then cardinality symbol
+  ---0|- zero or one ---||- one and only one ---0<- zero or many ---|<- one or many
+Define normalization and denormalization and their tradeoffs:
+Normalized data provides flexible querying and modeling (1:M, M:M, etc.), efficient storage (data is in one place), and consistency.
+Denormalized data can provide better performance for certain operations in exchange for less flexibility, storage space, and consistency.
+Example: cached aggregate calculation.
+
+Constraints
+What is a constraint?
+  a requirement that data must meet in order to be inserted into the database.
+What types of constraints are there? Describe how each works.
+  (NULL, unique, check)
+What are the benefits of database constraints?
+  Protect data integrity (values) and referential integrity (connections)
+  Frees application and its developers from having to handle missing/invalid data.
+
+Indexes
+What is an index?
+  a unique column identifier
+A good analogy for how database indexes work:
+  library index cards for books - the books can be physically on the shelves, but with indexed cards, we can find them in other ways quickly
+Indexes provide faster reading by performing some work at write time.
+Database indexes are sometimes implemented using B-trees (a generalization of binary search tree).
+Know what columns are typically indexed
+  primary key (usually automatic), foreign keys, columns used in WHERE clauses, aggregate keys.
+Composite indexes use more than one column.
+One technique to determining what columns to index:
+  Prepend EXPLAIN to a SQL statement and look for sequential scans.
+
+Know what JOINS are used for
+  finding relations between tables
+Be able to describe the types of JOINS and situations where you might use them:
+  INNER (cross) / LEFT OUTER (all left, cross on right) / RIGHT OUTER (all right, cross on left) / FULL OUTER (all from both, rarely useful)
+Understand how NULL values appear when using each type of JOIN
+  any outer row that doesn't have a match on the other side
+Understand how to use GROUP BY, ORDER BY, WHERE, and HAVING.
+Explain what an aggregate function is and give a few examples.
+  min, max, sum, avg, count
+Define a SQL injection
+  malicious user submits SQL in a form to affect database
+Describe how they can be prevented.
+  input sanitation
+What is a transaction?
+  the resulting changes of a successful SQL statement
+What is ACID?
+  Atomicity - every transaction is all or nothing
+  Consistency - only valid changes will be made to data
+  Isolation - concurrency control so that transactions appear sequential
+  Durability - endures after being committed
+What is an execution plan? How would you use it? How would you view the execution plan?
+  append statement with EXPLAIN, reveals order of background steps for query, can calculate efficiency based on performance of each step.
+
+PostgreSQL
+Describe what a sequence is and what they are used for.
+  increment index
+Create an auto-incrementing column.
+  serial
+Define a default value for a column.
+  DEFAULT constraint
+Be able to describe what primary, foreign, natural, and surrogate keys are.
+  primary: only one column per table, usually an id column
+  foreign: points to primary key of another table to relate them
+  natural: key that is already some coumn in the table
+  surrograte: the opposite of a natural key
+  composite: more than one column

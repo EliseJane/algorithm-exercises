@@ -1,0 +1,75 @@
+HTTP REVIEW
+
+HTTP
+HTTP sits on top of TCP, which provides guaranteed delivery (you can think of it as a pipe).
+  transmission control protocol, verifies that all packets of data are received
+HTTP is a plain text messaging format, an agreement of how client and server should communicate
+What are the components of an HTTP request?
+  method, path, headers, body
+What are the components of an HTTP response?
+  status, headers, body
+Identify the components of a URL (uniform resource locator)
+  scheme, host, port, path, query string (query parameters)
+Describe requests, responses, and their parts: method, path, headers, and body.
+Know what 2xx, 3xx, 4xx, and 5xx status code ranges mean.
+  200 OK (request handled successfully)
+  301
+  302 Found (redirects to new URL of resource in location response header)
+  404 Not Found (resource unavailable)
+  500 Internal Server Error (can be syntax error)
+Compare GET and POST. What's the difference in semantics? How do you choose one over the other?
+  GET asks to retrieve resources, in links or the address bar
+  POST sends data to server in body, then requests from location specified in response header
+What does it mean for a request to be idempotent?
+  it can be made over and over again with the same result on the server
+
+Statelessness
+What does it mean that HTTP is a stateless protocol? Explain how being stateless assists with scaling the web.
+  each request/response cycle is independent, protects the server
+
+Cookies
+What are they and what do they achieve?
+  small files stored in the browser with identifying session information for websites
+How are cookies implemented in the HTTP protocol?
+  they just store the session id which is a key to the session data maintained on the server
+Be able to walk through an example of a web site setting cookies, and subsequent requests carry the cookies.
+  first time visiting a website, set-cookie response header, browser stores cookie data, sends cookie in following request headers, checked against website to identify browser by session id
+Describe what the domain, expiry, and permanent/session properties of a cookie do.
+  domain: what website the cookie is associated with, expiry: ?, permanent properties: session id?
+
+Encryption
+What is HTTPS?
+  hypertext transfer protocol SECURE
+  every request/response encrypted before transportation
+  uses SSL (secure sockets layer) or TLS (transport layer security)
+What is end-to-end encryption?
+  public key encrypts message, private key needed to decrypt
+  uses 256 bit keys
+Describe how sign in pages and passwords are used on the web.
+  when username and password match, session id is stored in browser
+What is a man in the middle attack? How can they be prevented?
+  attacker intercepts server and sends own public key to computer, requires signed certificates (a third party vouching for the identity of public key creates private key)
+session hijacking?
+  reauthenticate at sensitive moments and invalidate old session id, have sessions expire, or use HTTPS
+
+Caching
+Describe how clients, servers, and proxies use HTTP caching.
+What types of requests can be cached?
+
+Security
+What is an XSS attack, and how can they be prevented?
+  Cross Site Scripting
+  user submits raw html and javascript to the server via a form, browser will render it
+  sanitize user input or escape all user input when displaying it
+What is a CSRF attack, and how can they be prevented?
+
+AJAX / HTTP via JavaScript
+Describe what an AJAX request is. Where are they commonly used, and why? From HTTP point of view, how's an AJAX request different from a non-Ajax request?
+  Asynchronous JavaScript and XML
+  normal request/response processed without reloading page by client side javascript
+Know that a server can detect an AJAX request by looking for the X-Requested-With header (which should be set to XMLHTTPRequest).
+Describe the Same Origin Policy and its effects on applications.
+  scripts from one site can only manipulate documents from the same origin (protocol, hostname, port)
+What is CORS? What is it used for?
+  Cross Origin Resource Sharing
+  adds new headers which allow resources to be served to permitted other origin domains
