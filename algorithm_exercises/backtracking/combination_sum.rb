@@ -1,8 +1,9 @@
 def combination_sum(candidates, target, combination=[], combinations=[])
-  if combination.inject(:+) == target
+  sum = combination.inject(:+)
+  if sum == target
         combinations << combination.clone
   else
-    if combination.empty? || combination.inject(:+) < target
+    if combination.empty? || sum < target
         candidates.each_with_index do |candidate, i|
             combination << candidate
             combination_sum(candidates[i..-1], target, combination, combinations)

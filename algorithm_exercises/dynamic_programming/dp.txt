@@ -1,0 +1,26 @@
+dp: over-lapping subproblems
+
+problem solving: how do I utilize subproblems solved to build solution for bigger (sub)problems?
+
+question: determine if you are able to reach the last index
+
+step 0: define sub problems and previous sub problems
+
+sub problems: determine if you are able to reach the i index, 0 <= i < end
+previous sub problems: whether we can reach the j index, 0 <= j < i
+
+step 1: look into the relationship between subproblems
+
+f(n) = f(0) && A[0] >= (n-0) ||
+       f(1) && A[1] >= (n-1) ||
+       f(2) && A[1] >= (n-2) ||
+       ...
+       f(n-1) && A[n-1] >= 1
+
+base case: return true if i == 0
+
+ie.   f(n) = OR{f(j) && A[j] >= (n-j)}, where 0 <= j < n
+
+step 2: write function without memo
+
+step 3: add memo (store values before return, check memo before recursion)
